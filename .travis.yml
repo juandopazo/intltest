@@ -3,8 +3,7 @@ node_js:
   - '0.10'
   - '0.12'
 
-addons:
-  sauce_connect:
-    username: andyearnshaw
-    access_key:
-      secure: 'OslPEaqVgNH+9YWwtEIJE4/Ot+RmSonIYMxvxMjnaaLAkoYX34nJzaB8vPFP1txDwkDHpOy+MiQ8hKYhyilw5Ydr11O2IEuhVjcJThKSoN3yMTe6FHpXQKO9uC1loaRwJs2uV0go+P4ooywZ8Y72/RtKXk0OOhn5Lg5ekb3wMRg='
+env:
+  global:
+    - secure: QJioR6xrAV6VzV4dI+0kaesq79tZquH0IaseVJ46jm0fcG+YoZNu+eC2fgMDyd6pzWrTJ55m35UsIlFxYMq6+EQS/YwvoGx3mTwmJCXDGq87sH4e6ZcKL4asWMSB5FKCrvTatPjwJpCLCWfSYd4euTTloWGE6ir2/dtXLHhfQ+Y=
+    - secure: FmFxUnct2XwBdZRjllmOC/xt+FSVGCcezdhdGyXSz1yF88HnTcsN7UX8qMjMUIrc0t8Lbeeqc0tgP7OSeqmdUff0EGsr8tOKvz4hiW8X8g47iBg20hLWgOSa3sWmLsZNB4OEqL+KDdHxwPZX4inYvBcsGURsTekXvu4Ky3doPSY=
