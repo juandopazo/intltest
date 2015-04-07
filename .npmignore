@@ -1,5 +1,6 @@
 # Pre-processed locale data output from Ldml2JsonConverter
 cldr/
+data/
 
 # test262 compiled python files
 *.pyc
@@ -14,3 +15,9 @@ cldr/
 # (It doesn't need anything used during development of this library.)
 tools/
 tests/
+
+coverage/
+tasks/
+tmp/
+.travis.yml
+Gruntfile.js

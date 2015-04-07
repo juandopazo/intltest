@@ -19,20 +19,20 @@ module.exports = function(grunt) {
 
             fileData = '',
             fs       = require('fs'),
-            locales  = fs.readdirSync('locale-data/json/'),
-            Intl     = String(fs.readFileSync('Intl.js'));
+            locales  = fs.readdirSync('locale-data/json/');
 
-        fileData += Intl.slice(0, Intl.lastIndexOf('return Intl;')) + '(function () {';
+        fileData += '(function(addLocaleData){\n';
 
         locales.forEach(function (file) {
-            locData[file.slice(0, file.indexOf('.'))] = JSON.parse(fs.readFileSync('locale-data/json/' + file), reviver);
+            var c = fs.readFileSync('locale-data/json/' + file),
+                k = file.slice(0, file.indexOf('.'));
+            locData[k] = JSON.parse(c, reviver);
         });
-
         function reviver (k, v) {
             var idx;
 
             if (k === 'locale')
-                return undefined;
+                return v;
 
             else if (typeof v === 'string') {
                 idx = prims.indexOf(v);
@@ -87,11 +87,14 @@ module.exports = function(grunt) {
             fileData += 'b['+ idx +']='+ ref +';';
         });
 
-        for (var k in locData)
-            fileData += 'addLocaleData('+ locData[k].replace(/###(objs|prims)(\[[^#]+)###/, replacer) +', "'+ k +'");';
+        for (var k in locData) {
+            fileData += 'addLocaleData('+ locData[k].replace(/###(objs|prims)(\[[^#]+)###/, replacer) +');\n';
+        }
 
-        fileData += '})();\n' + Intl.slice(Intl.lastIndexOf('return Intl;'));
-        fs.writeFileSync('Intl.complete.js', fileData);
+        fileData += '})(IntlPolyfill.__addLocaleData);';
+
+        // writting the complete optimized bundle
+        grunt.file.write('locale-data/complete.js', fileData);
 
         grunt.log.writeln('Total number of reused strings is ' + prims.length + ' (reduced from ' + valCount + ')');
         grunt.log.writeln('Total number of reused objects is ' + Object.keys(objStrs).length + ' (reduced from ' + objCount + ')');
